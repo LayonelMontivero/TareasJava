@@ -1,0 +1,76 @@
+public class Planeta {
+    // Atributos
+    String nombre = null;
+    int cantidadSatélites = 0;
+    double masa = 0.0;
+    double volumen = 0.0;
+    int diámetro = 0;
+    int distanciaAlSol = 0;
+    TipoPlaneta tipoPlaneta = TipoPlaneta.GASEOSO; // Valor por defecto
+    boolean observable = false;
+
+    // Enum TipoPlaneta
+    enum TipoPlaneta {
+        GASEOSO, TERRESTRE, ENANO
+    }
+
+    // Constructor de la clase Planeta
+    public Planeta(String nombre, int cantidadSatélites, double masa, double volumen, int diámetro, 
+                   int distanciaAlSol, TipoPlaneta tipoPlaneta, boolean observable) {
+        this.nombre = nombre;
+        this.cantidadSatélites = cantidadSatélites;
+        this.masa = masa;
+        this.volumen = volumen;
+        this.diámetro = diámetro;
+        this.distanciaAlSol = distanciaAlSol;
+        this.tipoPlaneta = tipoPlaneta;
+        this.observable = observable;
+    }
+
+    // Método que imprime los valores de los atributos
+    public void imprimir() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cantidad de satélites: " + cantidadSatélites);
+        System.out.println("Masa (kg): " + masa);
+        System.out.println("Volumen (km³): " + volumen);
+        System.out.println("Diámetro (km): " + diámetro);
+        System.out.println("Distancia al Sol (millones de km): " + distanciaAlSol);
+        System.out.println("Tipo de planeta: " + tipoPlaneta);
+        System.out.println("Observable a simple vista: " + (observable ? "Sí" : "No"));
+        System.out.println();
+    }
+
+    // Método que calcula la densidad del planeta
+    public double calcularDensidad() {
+        if (volumen != 0) {
+            return masa / volumen;  // Densidad = masa / volumen
+        } else {
+            return 0.0; // Evitar división por cero
+        }
+    }
+
+    // Método que determina si el planeta es exterior al sistema solar
+    public boolean esPlanetaExterior() {
+        // Cinturón de asteroides entre 2.1 y 3.4 UA, 1 UA = 149,597,870 km
+        double distanciaEnUA = distanciaAlSol / 149.59787; // Convertir a UA
+        return distanciaEnUA > 3.4;  // El planeta es exterior si está más allá de 3.4 UA
+    }
+
+    public static void main(String[] args) {
+        // Crear dos planetas
+        Planeta p1 = new Planeta("Jupiter", 79, 1.898e27, 1.43128e6, 139820, 778.5, TipoPlaneta.GASEOSO, true);
+        Planeta p2 = new Planeta("Mercurio", 0, 3.3011e23, 6.083e4, 4879, 57.9, TipoPlaneta.TERRESTRE, false);
+
+        // Imprimir los datos de los planetas
+        p1.imprimir();
+        p2.imprimir();
+
+        // Calcular y mostrar la densidad de los planetas
+        System.out.println(p1.nombre + " Densidad: " + p1.calcularDensidad() + " kg/km³");
+        System.out.println(p2.nombre + " Densidad: " + p2.calcularDensidad() + " kg/km³");
+
+        // Verificar si el planeta es exterior
+        System.out.println(p1.nombre + " es un planeta exterior: " + p1.esPlanetaExterior());
+        System.out.println(p2.nombre + " es un planeta exterior: " + p2.esPlanetaExterior());
+    }
+}
