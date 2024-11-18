@@ -1,0 +1,143 @@
+import java.util.ArrayList;
+
+// Interfaz Cancelable
+interface Cancelable {
+    void cancelarPago();
+}
+
+// Clase abstracta MetodoPago
+abstract class MetodoPago {
+    protected String titular;
+    protected String numero;
+
+    public MetodoPago(String titular, String numero) {
+        this.titular = titular;
+        this.numero = numero;
+    }
+
+    public abstract void realizarPago();  // Método abstracto para realizar el pago
+
+    @Override
+    public String toString() {
+        return "Titular: " + titular + " | Número: " + numero;
+    }
+}
+
+// Clase TarjetaCredito que hereda de MetodoPago
+class TarjetaCredito extends MetodoPago implements Cancelable {
+    private String fechaExpiracion;
+    private String codigoSeguridad;
+
+    public TarjetaCredito(String titular, String numero, String fechaExpiracion, String codigoSeguridad) {
+        super(titular, numero);
+        this.fechaExpiracion = fechaExpiracion;
+        this.codigoSeguridad = codigoSeguridad;
+    }
+
+    @Override
+    public void realizarPago() {
+        // Simulación de pago con tarjeta de crédito
+        System.out.println("Realizando pago con tarjeta de crédito: " + numero);
+        System.out.println("Pago aprobado para " + titular);
+    }
+
+    @Override
+    public void cancelarPago() {
+        // Simulación de cancelación de pago con tarjeta de crédito
+        System.out.println("Pago con tarjeta de crédito " + numero + " ha sido cancelado.");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Expiración: " + fechaExpiracion + " | Código Seguridad: " + codigoSeguridad;
+    }
+}
+
+// Clase PayPal que hereda de MetodoPago
+class PayPal extends MetodoPago implements Cancelable {
+    private String correoElectronico;
+
+    public PayPal(String titular, String numero, String correoElectronico) {
+        super(titular, numero);
+        this.correoElectronico = correoElectronico;
+    }
+
+    @Override
+    public void realizarPago() {
+        // Simulación de pago con PayPal
+        System.out.println("Realizando pago con PayPal: " + correoElectronico);
+        System.out.println("Pago aprobado para " + titular);
+    }
+
+    @Override
+    public void cancelarPago() {
+        // Simulación de cancelación de pago con PayPal
+        System.out.println("Pago con PayPal " + correoElectronico + " ha sido cancelado.");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Correo Electrónico: " + correoElectronico;
+    }
+}
+
+// Clase Pagos que maneja un conjunto de objetos MetodoPago
+class Pagos {
+    private ArrayList<MetodoPago> metodosPago;
+
+    public Pagos() {
+        metodosPago = new ArrayList<>();
+    }
+
+    public void agregarMetodoPago(MetodoPago metodoPago) {
+        metodosPago.add(metodoPago);
+    }
+
+    public void realizarPagos() {
+        for (MetodoPago metodoPago : metodosPago) {
+            metodoPago.realizarPago();  // Realizar el pago para cada método de pago
+        }
+    }
+
+    public void cancelarPagos() {
+        for (MetodoPago metodoPago : metodosPago) {
+            if (metodoPago instanceof Cancelable) {
+                ((Cancelable) metodoPago).cancelarPago();  // Cancelar el pago si el método es cancelable
+            }
+        }
+    }
+
+    public void mostrarMetodosPago() {
+        for (MetodoPago metodoPago : metodosPago) {
+            System.out.println(metodoPago);  // Mostrar información del método de pago
+        }
+    }
+}
+
+// Clase SistemaDePagos con el main
+public class SistemaDePagos {
+    public static void main(String[] args) {
+        // Crear objetos de métodos de pago
+        MetodoPago tarjeta1 = new TarjetaCredito("Juan Pérez", "1234-5678-9012-3456", "12/25", "123");
+        MetodoPago paypal1 = new PayPal("Maria López", "paypal123", "maria@example.com");
+
+        // Crear un sistema de pagos
+        Pagos sistemaPagos = new Pagos();
+
+        // Agregar métodos de pago
+        sistemaPagos.agregarMetodoPago(tarjeta1);
+        sistemaPagos.agregarMetodoPago(paypal1);
+
+        // Mostrar información de los métodos de pago
+        System.out.println("Métodos de Pago Disponibles:");
+        sistemaPagos.mostrarMetodosPago();
+
+        // Realizar pagos
+        System.out.println("\nRealizando pagos...");
+        sistemaPagos.realizarPagos();
+
+        // Cancelar pagos
+        System.out.println("\nCancelando pagos...");
+        sistemaPagos.cancelarPagos();
+    }
+}
