@@ -1,0 +1,103 @@
+import java.util.Scanner;
+
+public class EjerciciosBucles {
+
+    // Ejercicio 1: Cálculo del tiempo dedicado a cada actividad
+    public static void calcularTiempoActividades() {
+        Scanner scanner = new Scanner(System.in);
+        double totalTiempo = 0;
+        String[] actividades = {"estudiar", "hacer ejercicios", "leer", "tiempo libre"};
+
+        // Bucle para registrar las horas dedicadas a cada actividad
+        for (String actividad : actividades) {
+            System.out.print("Ingrese las horas dedicadas a " + actividad + ": ");
+            totalTiempo += scanner.nextDouble();
+        }
+
+        System.out.println("El tiempo total dedicado es: " + totalTiempo + " horas.");
+    }
+
+    // Ejercicio 2: Cálculo de salarios semanales
+    public static void calcularSalariosSemanales() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la cantidad de empleados: ");
+        int numEmpleados = scanner.nextInt();
+        double tarifaPorHora = 15;
+        
+        // Bucle para ingresar horas trabajadas y calcular salario de cada empleado
+        for (int i = 1; i <= numEmpleados; i++) {
+            System.out.print("Ingrese las horas trabajadas del empleado " + i + ": ");
+            int horasTrabajadas = scanner.nextInt();
+            double salario = horasTrabajadas * tarifaPorHora;
+            System.out.println("El salario del empleado " + i + " es: $" + salario);
+        }
+    }
+
+    // Ejercicio 3: Control de inventario
+    public static void controlDeInventario() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el número de productos: ");
+        int numProductos = scanner.nextInt();
+
+        // Bucle para ingresar las unidades disponibles de cada producto
+        for (int i = 1; i <= numProductos; i++) {
+            System.out.print("Ingrese la cantidad disponible del producto " + i + ": ");
+            int cantidad = scanner.nextInt();
+            if (cantidad < 5) {
+                System.out.println("Producto " + i + " tiene menos de 5 unidades, es necesario realizar un pedido.");
+            }
+        }
+    }
+
+    // Ejercicio 4: Registro de ventas diarias
+    public static void registroVentasDiarias() {
+        Scanner scanner = new Scanner(System.in);
+        double totalVentas = 0;
+
+        // Bucle para registrar las ventas durante 7 días
+        for (int i = 1; i <= 7; i++) {
+            System.out.print("Ingrese las ventas del día " + i + ": ");
+            totalVentas += scanner.nextDouble();
+        }
+
+        System.out.println("El total de ventas de la semana es: $" + totalVentas);
+    }
+
+    // Ejercicio 5: Cálculo de horas extras
+    public static void calcularHorasExtras() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el número de empleados: ");
+        int numEmpleados = scanner.nextInt();
+
+        // Bucle para ingresar las horas trabajadas de cada empleado y calcular las horas extras
+        for (int i = 1; i <= numEmpleados; i++) {
+            System.out.print("Ingrese las horas trabajadas del empleado " + i + ": ");
+            int horasTrabajadas = scanner.nextInt();
+            if (horasTrabajadas > 40) {
+                int horasExtras = horasTrabajadas - 40;
+                System.out.println("El empleado " + i + " trabajó " + horasExtras + " horas extras.");
+            }
+        }
+    }
+
+    // Método principal para ejecutar los ejercicios
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Ejecución de los ejercicios
+        System.out.println("Ejercicio 1: Cálculo del tiempo dedicado a cada actividad.");
+        calcularTiempoActividades();
+
+        System.out.println("\nEjercicio 2: Cálculo de salarios semanales.");
+        calcularSalariosSemanales();
+
+        System.out.println("\nEjercicio 3: Control de inventario.");
+        controlDeInventario();
+
+        System.out.println("\nEjercicio 4: Registro de ventas diarias.");
+        registroVentasDiarias();
+
+        System.out.println("\nEjercicio 5: Cálculo de horas extras.");
+        calcularHorasExtras();
+    }
+}
