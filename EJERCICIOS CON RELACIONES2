@@ -1,0 +1,118 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Clase Ingrediente
+class Ingrediente {
+    private String nombre;
+    private double cantidad;
+    private String unidadMedida;
+
+    public Ingrediente(String nombre, double cantidad, String unidadMedida) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.unidadMedida = unidadMedida;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " " + cantidad + " " + unidadMedida;
+    }
+}
+
+// Clase Plato
+class Plato {
+    private String nombreCompleto;
+    private double precio;
+    private boolean esBebida;
+    private ArrayList<Ingrediente> ingredientes;
+
+    public Plato(String nombreCompleto, double precio, boolean esBebida) {
+        this.nombreCompleto = nombreCompleto;
+        this.precio = precio;
+        this.esBebida = esBebida;
+        this.ingredientes = new ArrayList<>();
+    }
+
+    public void agregarIngrediente(Ingrediente ingrediente) {
+        if (!esBebida) {
+            ingredientes.add(ingrediente);
+        }
+    }
+
+    public boolean esBebida() {
+        return esBebida;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(nombreCompleto).append("\n")
+                .append("Precio: $").append(precio).append("\n");
+        if (!esBebida) {
+            sb.append("Ingredientes:\n");
+            for (Ingrediente ingrediente : ingredientes) {
+                sb.append("  - ").append(ingrediente).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+}
+
+// Clase MenuRestaurant
+public class MenuRestaurant {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Plato> platosMenu = new ArrayList<>();
+
+        System.out.println("¿Cuántos platos desea cargar en el menú?");
+        int cantidadPlatos = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
+        for (int i = 0; i < cantidadPlatos; i++) {
+            System.out.println("Ingrese el nombre del plato:");
+            String nombrePlato = scanner.nextLine();
+
+            System.out.println("Ingrese el precio del plato:");
+            double precio = scanner.nextDouble();
+
+            System.out.println("¿El plato es una bebida? (true/false):");
+            boolean esBebida = scanner.nextBoolean();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            Plato plato = new Plato(nombrePlato, precio, esBebida);
+
+            if (!esBebida) {
+                System.out.println("Ingrese la cantidad de ingredientes para este plato:");
+                int cantidadIngredientes = scanner.nextInt();
+                while (cantidadIngredientes < 1) {
+                    System.out.println("Debe ingresar al menos un ingrediente. Inténtelo nuevamente:");
+                    cantidadIngredientes = scanner.nextInt();
+                }
+                scanner.nextLine(); // Consumir el salto de línea
+
+                for (int j = 0; j < cantidadIngredientes; j++) {
+                    System.out.println("Ingrese el nombre del ingrediente:");
+                    String nombreIngrediente = scanner.nextLine();
+
+                    System.out.println("Ingrese la cantidad del ingrediente:");
+                    double cantidad = scanner.nextDouble();
+                    scanner.nextLine(); // Consumir el salto de línea
+
+                    System.out.println("Ingrese la unidad de medida del ingrediente:");
+                    String unidadMedida = scanner.nextLine();
+
+                    plato.agregarIngrediente(new Ingrediente(nombreIngrediente, cantidad, unidadMedida));
+                }
+            }
+
+            platosMenu.add(plato);
+        }
+
+        System.out.println("\n--- MENÚ ---");
+        for (Plato plato : platosMenu) {
+            System.out.println(plato);
+        }
+
+        scanner.close();
+    }
+}
