@@ -1,0 +1,148 @@
+import java.util.ArrayList;
+
+// Interfaz Personalizable
+interface Personalizable {
+    void personalizarMensaje(String nuevoMensaje);
+}
+
+// Clase abstracta CanalNotificacion
+abstract class CanalNotificacion {
+    protected String usuario;
+    protected String mensaje;
+
+    public CanalNotificacion(String usuario, String mensaje) {
+        this.usuario = usuario;
+        this.mensaje = mensaje;
+    }
+
+    public abstract void enviarNotificacion();  // Método abstracto para enviar la notificación
+
+    @Override
+    public String toString() {
+        return "Usuario: " + usuario + " | Mensaje: " + mensaje;
+    }
+}
+
+// Clase CorreoElectronico que hereda de CanalNotificacion e implementa Personalizable
+class CorreoElectronico extends CanalNotificacion implements Personalizable {
+    private String direccionCorreo;
+
+    public CorreoElectronico(String usuario, String mensaje, String direccionCorreo) {
+        super(usuario, mensaje);
+        this.direccionCorreo = direccionCorreo;
+    }
+
+    @Override
+    public void enviarNotificacion() {
+        // Simulación de envío de correo electrónico
+        System.out.println("Enviando correo electrónico a: " + direccionCorreo);
+        System.out.println("Asunto: Notificación para " + usuario);
+        System.out.println("Cuerpo del mensaje: " + mensaje);
+    }
+
+    @Override
+    public void personalizarMensaje(String nuevoMensaje) {
+        // Permite personalizar el mensaje
+        this.mensaje = nuevoMensaje;
+        System.out.println("Mensaje personalizado para " + usuario + ": " + mensaje);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Correo: " + direccionCorreo;
+    }
+}
+
+// Clase MensajeTexto que hereda de CanalNotificacion e implementa Personalizable
+class MensajeTexto extends CanalNotificacion implements Personalizable {
+    private String numeroTelefono;
+
+    public MensajeTexto(String usuario, String mensaje, String numeroTelefono) {
+        super(usuario, mensaje);
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    @Override
+    public void enviarNotificacion() {
+        // Simulación de envío de mensaje de texto
+        System.out.println("Enviando mensaje de texto a: " + numeroTelefono);
+        System.out.println("Mensaje: " + mensaje);
+    }
+
+    @Override
+    public void personalizarMensaje(String nuevoMensaje) {
+        // Permite personalizar el mensaje
+        this.mensaje = nuevoMensaje;
+        System.out.println("Mensaje personalizado para " + usuario + ": " + mensaje);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Teléfono: " + numeroTelefono;
+    }
+}
+
+// Clase Notificaciones que maneja un conjunto de objetos CanalNotificacion
+class Notificaciones {
+    private ArrayList<CanalNotificacion> canalesNotificacion;
+
+    public Notificaciones() {
+        canalesNotificacion = new ArrayList<>();
+    }
+
+    public void agregarCanalNotificacion(CanalNotificacion canal) {
+        canalesNotificacion.add(canal);
+    }
+
+    public void enviarNotificaciones() {
+        for (CanalNotificacion canal : canalesNotificacion) {
+            canal.enviarNotificacion();  // Enviar la notificación para cada canal
+        }
+    }
+
+    public void personalizarMensajes(String nuevoMensaje) {
+        for (CanalNotificacion canal : canalesNotificacion) {
+            if (canal instanceof Personalizable) {
+                ((Personalizable) canal).personalizarMensaje(nuevoMensaje);  // Personalizar el mensaje si es posible
+            }
+        }
+    }
+
+    public void mostrarCanalesNotificacion() {
+        for (CanalNotificacion canal : canalesNotificacion) {
+            System.out.println(canal);  // Mostrar la información del canal de notificación
+        }
+    }
+}
+
+// Clase SistemaNotificaciones con el main
+public class SistemaNotificaciones {
+    public static void main(String[] args) {
+        // Crear objetos de canales de notificación
+        CanalNotificacion correo1 = new CorreoElectronico("Juan Pérez", "¡Tienes una nueva notificación!", "juan.perez@email.com");
+        CanalNotificacion mensaje1 = new MensajeTexto("Maria López", "¡Tu pedido ha sido enviado!", "555-1234");
+
+        // Crear un sistema de notificaciones
+        Notificaciones sistemaNotificaciones = new Notificaciones();
+
+        // Agregar canales de notificación
+        sistemaNotificaciones.agregarCanalNotificacion(correo1);
+        sistemaNotificaciones.agregarCanalNotificacion(mensaje1);
+
+        // Mostrar información de los canales de notificación
+        System.out.println("Canales de Notificación:");
+        sistemaNotificaciones.mostrarCanalesNotificacion();
+
+        // Enviar notificaciones
+        System.out.println("\nEnviando notificaciones...");
+        sistemaNotificaciones.enviarNotificaciones();
+
+        // Personalizar mensajes
+        System.out.println("\nPersonalizando mensajes...");
+        sistemaNotificaciones.personalizarMensajes("¡Tienes una oferta exclusiva!");
+
+        // Mostrar información de los canales después de personalizar los mensajes
+        System.out.println("\nCanales de Notificación después de personalizar los mensajes:");
+        sistemaNotificaciones.mostrarCanalesNotificacion();
+    }
+}
