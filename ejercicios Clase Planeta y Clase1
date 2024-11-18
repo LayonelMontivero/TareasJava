@@ -1,0 +1,53 @@
+public class Persona {
+    String nombre;  // Atributo que identifica el nombre de una persona
+    String apellidos;  // Atributo que identifica los apellidos de una persona
+    String numeroDocumentoIdentidad;  // Atributo que identifica el número de documento de identidad de una persona
+    int añoNacimiento;  // Atributo que identifica el año de nacimiento de una persona
+    String paisNacimiento;  // Atributo que identifica el país de nacimiento de la persona
+    char genero;  // Atributo que identifica el género de la persona ('H' para hombre, 'M' para mujer)
+
+    /**
+     * Constructor de la clase Persona
+     * @param nombre Parámetro que define el nombre de la persona
+     * @param apellidos Parámetro que define los apellidos de la persona
+     * @param numeroDocumentoIdentidad Parámetro que define el número del documento de identidad de la persona
+     * @param añoNacimiento Parámetro que define el año de nacimiento de la persona
+     * @param paisNacimiento Parámetro que define el país de nacimiento de la persona
+     * @param genero Parámetro que define el género de la persona ('H' o 'M')
+     */
+    Persona(String nombre, String apellidos, String numeroDocumentoIdentidad, 
+            int añoNacimiento, String paisNacimiento, char genero) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.numeroDocumentoIdentidad = numeroDocumentoIdentidad;
+        this.añoNacimiento = añoNacimiento;
+        this.paisNacimiento = paisNacimiento;
+        this.genero = genero;
+    }
+
+    /**
+     * Método que imprime en pantalla los datos de una persona
+     */
+    void imprimir() {
+        System.out.println("Nombre = " + nombre);
+        System.out.println("Apellidos = " + apellidos);
+        System.out.println("Número de documento de identidad = " + numeroDocumentoIdentidad);
+        System.out.println("Año de nacimiento = " + añoNacimiento);
+        System.out.println("País de nacimiento = " + paisNacimiento);
+        System.out.println("Género = " + (genero == 'H' ? "Hombre" : "Mujer"));
+        System.out.println();
+    }
+
+    /**
+     * Método main que crea dos personas e imprime sus datos en pantalla
+     */
+    public static void main(String args[]) {
+        // Crear dos personas
+        Persona p1 = new Persona("Pedro", "Pérez", "1053121010", 1998, "España", 'H');
+        Persona p2 = new Persona("Luis", "León", "1053223344", 2001, "México", 'H');
+        
+        // Imprimir los datos de las personas
+        p1.imprimir();
+        p2.imprimir();
+    }
+}
