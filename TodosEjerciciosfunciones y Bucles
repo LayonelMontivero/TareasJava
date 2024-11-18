@@ -1,0 +1,139 @@
+public class Empresa {
+
+    public static void main(String[] args) {
+        // Ejercicio 1: Cálculo de ingresos mensuales
+        double[] ventas = {150.5, 200.75, 180.0, 220.25, 170.5, 210.0, 250.75, 190.0, 230.5, 160.25, 210.5, 200.0,
+                            190.75, 180.0, 220.25, 170.5, 210.0, 250.75, 190.0, 230.5, 160.25, 210.5, 200.0, 190.75,
+                            180.0, 220.25, 170.5, 210.0, 250.75, 190.0, 230.5};
+        calcularIngresosMensuales(ventas);
+
+        // Ejercicio 2: Generar reportes de inventario
+        String[] productos = {"Televisor", "Celular", "Laptop", "Tablet", "Cámara"};
+        int[] stocks = {3, 10, 2, 6, 4};
+        generarReporteBajoStock(productos, stocks);
+
+        // Ejercicio 3: Gestión de clientes
+        String[] clientes = {"Cliente1", "Cliente2", "Cliente3", "Cliente4"};
+        double[] facturasPendientes = {400.0, 600.0, 700.5, 350.75};
+        enviarFacturas(clientes, facturasPendientes);
+
+        // Ejercicio 4: Cálculo de descuentos para fidelización
+        String[] clientesDescuento = {"Cliente1", "Cliente2", "Cliente3", "Cliente4"};
+        int[] compras = {5, 12, 7, 15};
+        calcularDescuentos(clientesDescuento, compras);
+
+        // Ejercicio 5: Promedio de satisfacción del cliente
+        int[] calificaciones = {5, 4, 3, 5, 2, 5, 4, 3};
+        calcularPromedioSatisfaccion(calificaciones);
+
+        // Ejercicio 6: Cálculo de impuestos
+        double[] facturas = {150.0, 200.0, 350.0, 100.0};
+        calcularImpuesto(facturas);
+
+        // Ejercicio 7: Descuento por compras grandes
+        double[] comprasClientes = {600.0, 450.0, 700.0, 200.0};
+        aplicarDescuento(comprasClientes);
+
+        // Ejercicio 8: Control de horas trabajadas
+        String[] empleados = {"Empleado1", "Empleado2", "Empleado3"};
+        double[] horasTrabajadas = {40, 35, 45};
+        calcularPagoSemanal(empleados, horasTrabajadas);
+
+        // Ejercicio 9: Calcular el precio final con descuentos
+        double[] preciosOriginales = {100.0, 200.0, 300.0, 150.0};
+        calcularPrecioFinal(preciosOriginales);
+    }
+
+    // Ejercicio 1: Cálculo de ingresos mensuales
+    public static void calcularIngresosMensuales(double[] ventas) {
+        double total = 0;
+        for (double venta : ventas) {
+            total += venta;
+        }
+        System.out.println("Total de ingresos mensuales: $" + total);
+    }
+
+    // Ejercicio 2: Generar reportes de inventario
+    public static void generarReporteBajoStock(String[] productos, int[] stocks) {
+        System.out.println("Productos con bajo stock:");
+        for (int i = 0; i < productos.length; i++) {
+            if (stocks[i] < 5) {
+                System.out.println(productos[i] + " - Unidades: " + stocks[i]);
+            }
+        }
+    }
+
+    // Ejercicio 3: Gestión de clientes
+    public static void enviarFacturas(String[] clientes, double[] facturasPendientes) {
+        System.out.println("Clientes con facturas mayores a $500:");
+        for (int i = 0; i < clientes.length; i++) {
+            if (facturasPendientes[i] > 500) {
+                System.out.println(clientes[i] + " - Factura: $" + facturasPendientes[i]);
+            }
+        }
+    }
+
+    // Ejercicio 4: Cálculo de descuentos para fidelización
+    public static void calcularDescuentos(String[] clientes, int[] compras) {
+        System.out.println("Clientes con descuento:");
+        for (int i = 0; i < clientes.length; i++) {
+            if (compras[i] > 10) {
+                System.out.println(clientes[i] + " - Descuento aplicado: 10%");
+            }
+        }
+    }
+
+    // Ejercicio 5: Promedio de satisfacción del cliente
+    public static void calcularPromedioSatisfaccion(int[] calificaciones) {
+        int total = 0;
+        for (int calificacion : calificaciones) {
+            total += calificacion;
+        }
+        double promedio = total / (double) calificaciones.length;
+        System.out.println("Promedio de satisfacción del cliente: " + promedio);
+    }
+
+    // Ejercicio 6: Cálculo de impuestos
+    public static void calcularImpuesto(double[] facturas) {
+        final double IMPUESTO = 0.21;
+        System.out.println("Cálculo de impuestos:");
+        for (double factura : facturas) {
+            double impuesto = factura * IMPUESTO;
+            System.out.println("Factura: $" + factura + " - Impuesto: $" + impuesto);
+        }
+    }
+
+    // Ejercicio 7: Descuento por compras grandes
+    public static void aplicarDescuento(double[] compras) {
+        final double DESCUENTO = 0.15;
+        System.out.println("Aplicación de descuento:");
+        for (int i = 0; i < compras.length; i++) {
+            if (compras[i] > 500) {
+                double descuento = compras[i] * DESCUENTO;
+                double precioFinal = compras[i] - descuento;
+                System.out.println("Compra de $" + compras[i] + " - Descuento aplicado: $" + descuento + " - Precio final: $" + precioFinal);
+            }
+        }
+    }
+
+    // Ejercicio 8: Control de horas trabajadas
+    public static void calcularPagoSemanal(String[] empleados, double[] horasTrabajadas) {
+        final double TARIFA_HORA = 15.0;
+        System.out.println("Pago semanal de los empleados:");
+        for (int i = 0; i < empleados.length; i++) {
+            double pago = horasTrabajadas[i] * TARIFA_HORA;
+            System.out.println(empleados[i] + " - Horas trabajadas: " + horasTrabajadas[i] + " - Pago semanal: $" + pago);
+        }
+    }
+
+    // Ejercicio 9: Calcular el precio final con descuentos
+    public static void calcularPrecioFinal(double[] preciosOriginales) {
+        final double DESCUENTO = 0.10;
+        System.out.println("Cálculo de precio final con descuento:");
+        for (double precio : preciosOriginales) {
+            double descuento = precio * DESCUENTO;
+            double precioFinal = precio - descuento;
+            System.out.println("Precio original: $" + precio + " - Descuento: $" + descuento + " - Precio final: $" + precioFinal);
+        }
+    }
+}
